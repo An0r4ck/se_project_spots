@@ -1,6 +1,6 @@
 .card {
   max-width: 413px;
-  height: 445px;
+  min-height: 445px;
 }
 
 .card__content {
@@ -10,6 +10,7 @@
 }
 
 .card__title {
+  margin: 0 auto;
   font-size: 20px;
   line-height: 1.2;
   font-weight: 500;
@@ -35,6 +36,7 @@
   opacity: 40%;
   background-color: transparent;
   transition: opacity 0.3s ease-in-out;
+  cursor: pointer;
 }
 
 .card__like-button:hover {
@@ -43,8 +45,9 @@
 
 @media screen and (max-width: 560px) {
   .card {
+    margin: 0;
     max-width: 288px;
-    height: 318px;
+    min-height: 318px;
   }
 
   .card__image {
@@ -55,6 +58,7 @@
   }
 
   .card__title {
+    margin: 12px 0;
     font-size: 16px;
     line-height: 1.16;
   }
