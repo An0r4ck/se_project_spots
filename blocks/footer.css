@@ -2,4 +2,10 @@
   display: flex;
   justify-content: center;
   padding: 60px 0;
+  opacity: 70%;
+}
+
+.footer__copyright {
+  line-height: 1;
+  font-weight: 400;
 }
