@@ -21,3 +21,7 @@ This project is a photo sharing app called Spots. It is meant to be a social med
 This webpage is deployed to GitHub Pages
 
 [Deployment Link](https://an0r4ck.github.io/se_project_spots/)
+
+#### Video
+
+[Video Link](https://youtu.be/jdMafAd4ZFY)
