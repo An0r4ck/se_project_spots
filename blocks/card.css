@@ -10,7 +10,7 @@
 }
 
 .card__title {
-  margin: 0 auto;
+  margin: 12px 0;
   font-size: 20px;
   line-height: 1.2;
   font-weight: 500;
@@ -58,7 +58,6 @@
   }
 
   .card__title {
-    margin: 12px 0;
     font-size: 16px;
     line-height: 1.16;
   }
