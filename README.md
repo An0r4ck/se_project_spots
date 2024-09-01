@@ -6,14 +6,18 @@
 - Technology and Techniques
 - GitHub Link
 
-**Description**
+#### Description
 
 This project is a photo sharing app called Spots. It is meant to be a social media app for sharing photography projects or personal moments depending on your reason for using it.
 
-**Technology and Techniques**
+#### Technology and Techniques
 
-This project utilizes grid formatting, flexbox, media queries for responsive design, and smooth transitions on the buttons.
+- HTML
+- CSS
+- Responsive Design
 
-**GitHub Link**
+#### Deployment
 
-https://github.com/An0r4ck/se_project_spots/tree/main
+This webpage is deployed to GitHub Pages
+
+[Deployment Link](https://an0r4ck.github.io/se_project_spots/)
