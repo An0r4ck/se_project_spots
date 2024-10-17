@@ -40,12 +40,16 @@ const editModalDescriptionInput = editModal.querySelector(
   "#profile-description-input"
 );
 const cardModal = document.querySelector("#add-card-modal");
+const cardForm = cardModal.querySelector(".modal__form");
 const cardModalCloseButton = cardModal.querySelector(".modal__close-button");
+const cardCaptionInput = cardModal.querySelector("#add-card-caption-input");
+const cardLinkInput = cardModal.querySelector("#add-card-link-input");
 
 // Card elements
 const cardTemplate = document.querySelector("#card-template");
 const cardsList = document.querySelector(".cards__list");
 
+// Creates more card templates depending on objects present in the array
 function getCardElement(data) {
   const cardElement = cardTemplate.content
     .querySelector(".card")
@@ -61,10 +65,12 @@ function getCardElement(data) {
   return cardElement;
 }
 
+// Adds the modal_opened class to whatever this function is connected to
 function openModal(modal) {
   modal.classList.add("modal_opened");
 }
 
+// Removes the modal_opened class from whatever this function is connected to
 function closeModal(modal) {
   modal.classList.remove("modal_opened");
 }
@@ -76,6 +82,20 @@ function handleEditFormSubmit(evt) {
   closeModal(editModal);
 }
 
+function handleAddCardSubmit(evt) {
+  evt.preventDefault();
+  console.log(cardCaptionInput.value);
+  console.log(cardLinkInput.value);
+  const inputValues = {
+    name: cardCaptionInput.value,
+    link: cardLinkInput.value,
+  };
+  const cardElement = getCardElement(inputValues);
+  cardsList.prepend(cardElement);
+  closeModal(cardModal);
+}
+
+// All functionality for the form that opens when you click "Edit Profile"
 profileEditButton.addEventListener("click", () => {
   editModalNameInput.value = profileName.textContent;
   editModalDescriptionInput.value = profileDescription.textContent;
@@ -86,6 +106,7 @@ modalCloseButton.addEventListener("click", () => {
 });
 editFormElement.addEventListener("submit", handleEditFormSubmit);
 
+// All functionality for the form that opens when you click "+ New Post"
 cardModalButton.addEventListener("click", () => {
   openModal(cardModal);
 });
@@ -93,7 +114,9 @@ cardModalCloseButton.addEventListener("click", () => {
   closeModal(cardModal);
 });
 editFormElement.addEventListener("submit", handleEditFormSubmit);
+cardForm.addEventListener("submit", handleAddCardSubmit);
 
+// Adds cards to the page from the above array
 initialCards.forEach((card) => {
   const cardElement = getCardElement(card);
   cardsList.prepend(cardElement);
