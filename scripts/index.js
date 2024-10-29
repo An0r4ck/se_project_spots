@@ -48,6 +48,7 @@ const cardLinkInput = cardModal.querySelector("#add-card-link-input");
 // Card elements
 const cardTemplate = document.querySelector("#card-template");
 const cardsList = document.querySelector(".cards__list");
+const cardDeleteButton = cardTemplate.querySelector(".card__delete-button");
 
 // Creates more card templates depending on objects present in the array
 function getCardElement(data) {
@@ -66,6 +67,8 @@ function getCardElement(data) {
   cardLikeButton.addEventListener("click", () => {
     cardLikeButton.classList.toggle("card__like-button_liked");
   });
+
+  // cardDeleteButton.addEventListener("click", () => {});
 
   return cardElement;
 }
