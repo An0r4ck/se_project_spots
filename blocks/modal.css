@@ -125,6 +125,10 @@
   transition: opacity 0.3s ease-in-out;
 }
 
+.modal__input_type_error {
+  border: 1px solid #f00;
+}
+
 .modal__input:hover {
   border-color: rgb(33, 33, 33, 1);
 }

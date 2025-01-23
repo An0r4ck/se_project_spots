@@ -106,6 +106,7 @@ function handleEditFormSubmit(evt) {
   evt.preventDefault();
   profileName.textContent = editModalNameInput.value;
   profileDescription.textContent = editModalDescriptionInput.value;
+  evt.target.reset();
   closeModal(editModal);
 }
 
