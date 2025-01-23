@@ -153,6 +153,10 @@
   cursor: pointer;
 }
 
+.modal__submit-button_type_disabled {
+  opacity: 50%;
+}
+
 .modal__submit-button:hover {
   opacity: 80%;
 }

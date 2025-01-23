@@ -18,16 +18,32 @@ const checkInputValidity = (formEl, inputEl) => {
   }
 };
 
+const hasInvalidInput = (inputList) => {
+  return inputList.some((input) => {
+    return !input.validity.valid;
+  });
+};
+
+const toggleButtonState = (inputList, buttonEl) => {
+  if (hasInvalidInput(inputList)) {
+    buttonEl.disabled = true;
+    buttonEl.classList.add("modal__submit-button_type_disabled");
+  } else {
+    buttonEl.disabled = false;
+    buttonEl.classList.remove("modal__submit-button_type_disabled");
+  }
+};
+
 const setEventListeners = (formEl) => {
   const inputList = Array.from(formEl.querySelectorAll(".modal__input"));
-  const buttonElement = formEl.querySelector(".modal__submit-button");
+  const buttonEl = formEl.querySelector(".modal__submit-button");
 
-  // toggleButtonState(inputList, buttonElement);
+  toggleButtonState(inputList, buttonEl);
 
   inputList.forEach((inputEl) => {
     inputEl.addEventListener("input", function () {
       checkInputValidity(formEl, inputEl);
-      toggleButtonState(inputList, buttonElement);
+      toggleButtonState(inputList, buttonEl);
     });
   });
 };
