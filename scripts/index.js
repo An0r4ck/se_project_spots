@@ -41,6 +41,7 @@ const editModalDescriptionInput = editModal.querySelector(
 );
 const cardModal = document.querySelector("#add-card-modal");
 const cardForm = cardModal.querySelector(".modal__form");
+const cardSubmitButton = cardModal.querySelector(".modal__submit-button");
 const cardModalCloseButton = cardModal.querySelector(".modal__close-button");
 const cardCaptionInput = cardModal.querySelector("#add-card-caption-input");
 const cardLinkInput = cardModal.querySelector("#add-card-link-input");
@@ -102,6 +103,7 @@ previewModalCloseButton.addEventListener("click", () => {
   closeModal(previewModal);
 });
 
+// Allows for editing profile section by submitting info to the connected form
 function handleEditFormSubmit(evt) {
   evt.preventDefault();
   profileName.textContent = editModalNameInput.value;
@@ -110,6 +112,7 @@ function handleEditFormSubmit(evt) {
   closeModal(editModal);
 }
 
+// Allows for creating a new card/new post by submitting info to the connected form
 function handleAddCardSubmit(evt) {
   evt.preventDefault();
   console.log(cardCaptionInput.value);
@@ -121,6 +124,7 @@ function handleAddCardSubmit(evt) {
   const cardElement = getCardElement(inputValues);
   cardsList.prepend(cardElement);
   evt.target.reset();
+  disableButton(cardSubmitButton);
   closeModal(cardModal);
 }
 
