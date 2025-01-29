@@ -92,16 +92,35 @@ function getCardElement(data) {
 // Adds the modal_opened class to whatever this function is connected to
 function openModal(modal) {
   modal.classList.add("modal_opened");
+  modal.addEventListener("click", closeModalOnOverlay);
+  document.addEventListener("keydown", closeModalOnEsc);
 }
 
 // Removes the modal_opened class from whatever this function is connected to
 function closeModal(modal) {
   modal.classList.remove("modal_opened");
+  document.removeEventListener("keydown", closeModalOnEsc);
 }
 
+// Makes the close button in the forms act as an exit for them
 previewModalCloseButton.addEventListener("click", () => {
   closeModal(previewModal);
 });
+
+// Function for closing a form if you click outside the form's borders
+function closeModalOnOverlay(evt) {
+  if (evt.target.classList.contains("modal")) {
+    closeModal(evt.target);
+  }
+}
+
+// Function for closing a form if you press Esc
+function closeModalOnEsc(evt) {
+  if (evt.key === "Escape") {
+    const modal = document.querySelector(".modal_opened");
+    closeModal(modal);
+  }
+}
 
 // Allows for editing profile section by submitting info to the connected form
 function handleEditFormSubmit(evt) {
@@ -132,6 +151,10 @@ function handleAddCardSubmit(evt) {
 profileEditButton.addEventListener("click", () => {
   editModalNameInput.value = profileName.textContent;
   editModalDescriptionInput.value = profileDescription.textContent;
+  resetValidation(editFormElement, [
+    editModalNameInput,
+    editModalDescriptionInput,
+  ]);
   openModal(editModal);
 });
 profileCloseButton.addEventListener("click", () => {
