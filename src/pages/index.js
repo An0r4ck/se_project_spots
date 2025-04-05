@@ -1,3 +1,6 @@
+import "./index.css";
+import { enableValidation, settings } from "../scripts/validation.js";
+
 const initialCards = [
   {
     name: "Alien structure in the desert",
@@ -179,3 +182,5 @@ initialCards.forEach((card) => {
   const cardElement = getCardElement(card);
   cardsList.prepend(cardElement);
 });
+
+enableValidation(settings);
