@@ -1,1 +1,1 @@
-https://yourUsername.github.io/yourRepo
+https://an0r4ck.github.io/se_project_spots
