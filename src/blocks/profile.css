@@ -7,7 +7,6 @@
 .profile__avatar {
   display: block;
   object-fit: cover;
-  margin-right: 20px;
   border-radius: 8px;
   height: 190px;
   width: 190px;
@@ -17,22 +16,26 @@
 .profile__avatar-container {
   position: relative;
   width: fit-content;
+  margin-right: 20px;
 }
 
 .profile__avatar-btn {
   position: absolute;
   width: 100%;
   height: 100%;
+  padding-bottom: 12px;
+  font-size: 16px;
+  line-height: 100%;
   display: flex;
   align-items: flex-end;
   justify-content: center;
+  gap: 8px;
   visibility: hidden;
   cursor: pointer;
+  border: none;
   border-radius: 8px;
-  background-color: #000;
+  background-color: rgb(18, 18, 18, 0.6);
   color: #fff;
-  opacity: 0.5;
-  border: 2px solid rgb(0, 255, 0);
   z-index: 1;
 }
 
@@ -52,7 +55,7 @@
 .profile__name {
   margin: 0 0 12px;
   font-weight: 500;
-  line-height: 1;
+  line-height: 1.5;
   text-overflow: ellipsis;
   overflow: hidden;
   display: -webkit-box;
@@ -64,7 +67,7 @@
 .profile__description {
   margin: 0;
   font-weight: 500;
-  line-height: 1;
+  line-height: 1.5;
   opacity: 70%;
   text-overflow: ellipsis;
   overflow: hidden;
@@ -151,10 +154,24 @@
   }
 
   .profile__avatar-btn {
+    display: flex;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+    border-radius: 6px;
+    box-sizing: border-box;
+    width: 23.34px;
+    height: 23.34px;
+    bottom: 4.66px;
+    right: 4.66px;
     visibility: visible;
   }
 
-  .profile__avater-btn::after {
+  .profile__pencil-icon {
+    position: absolute;
+  }
+
+  .profile__avatar-btn::after {
     content: "";
   }
 
