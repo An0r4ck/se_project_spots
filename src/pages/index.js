@@ -5,6 +5,7 @@ import {
   settings,
 } from "../scripts/validation.js";
 import Api from "../utils/Api.js";
+import { setButtonText } from "../utils/helpers.js";
 
 // const initialCards = [
 //   {
@@ -114,21 +115,11 @@ api
 function handleLike(evt, cardId) {
   const isLiked = evt.target.classList.contains("card__like-button_liked");
   api
-    .changeLikeStatus(cardId, !isLiked)
+    .changeLikeStatus(cardId, isLiked)
     .then((res) => {
       evt.target.classList.toggle("card__like-button_liked");
     })
     .catch(console.error);
-}
-
-function handleCardLike(cardElement, cardId) {
-  // if the card has an element with card__like-button_liked
-  // this means that the card is liked and we need to dislike the
-  if (cardElement.querySelector(".card__like-button_liked")) {
-    api.disLikeCard();
-  } else {
-    api.likeCard();
-  }
 }
 
 // Creates more card templates depending on objects present in the array
@@ -149,7 +140,7 @@ function getCardElement(data) {
   cardLikeButton.addEventListener("click", (evt) => handleLike(evt, data._id));
 
   if (data.isLiked) {
-    cardLikeButton.classList.add("card_like-button_liked");
+    cardLikeButton.classList.add("card__like-button_liked");
   }
 
   cardDeleteButton.addEventListener("click", () => {
@@ -203,6 +194,8 @@ function closeModalOnEsc(evt) {
 // Allows for editing profile section by submitting info to the connected form
 function handleEditFormSubmit(evt) {
   evt.preventDefault();
+  const submitBtn = evt.submitter;
+  setButtonText(submitBtn, true);
   api
     .editUserInfo({
       name: editModalNameInput.value,
@@ -214,12 +207,17 @@ function handleEditFormSubmit(evt) {
       evt.target.reset();
       closeModal(editModal);
     })
-    .catch(console.error);
+    .catch(console.error)
+    .finally(() => {
+      setButtonText(submitBtn, false);
+    });
 }
 
 // Allows for creating a new card/new post by submitting info to the connected form
 function handleAddCardSubmit(evt) {
   evt.preventDefault();
+  const submitBtn = evt.submitter;
+  setButtonText(submitBtn, true);
   const inputValues = {
     name: cardCaptionInput.value,
     link: cardLinkInput.value,
@@ -231,14 +229,19 @@ function handleAddCardSubmit(evt) {
       cardsList.prepend(cardElement);
       evt.target.reset();
       disableButton(cardSubmitButton, settings);
-      closeModal(cardModal);
     })
-    .catch(console.error);
+    .catch(console.error)
+    .finally(() => {
+      setButtonText(submitBtn, false);
+      closeModal(cardModal);
+    });
 }
 
 // Allows for swapping out a profile avatar image
 function handleAvatarSubmit(evt) {
   evt.preventDefault();
+  const submitBtn = evt.submitter;
+  setButtonText(submitBtn, true);
   api
     .editAvatar(avatarInput.value)
     .then((data) => {
@@ -246,19 +249,27 @@ function handleAvatarSubmit(evt) {
       evt.target.reset();
       closeModal(avatarModal);
     })
-    .catch(console.error);
+    .catch(console.error)
+    .finally(() => {
+      setButtonText(submitBtn, false);
+    });
 }
 
 // Allows for deleting cards
 function handleDeleteSubmit(evt) {
   evt.preventDefault();
+  const submitBtn = deleteModalButton;
+  setButtonText(submitBtn, true, "Deleting...", "Delete");
   api
     .deleteCard(selectedCardId)
     .then(() => {
       selectedCard.remove();
       closeModal(deleteModal);
     })
-    .catch(console.error);
+    .catch(console.error)
+    .finally(() => {
+      setButtonText(submitBtn, false, "Deleting...", "Delete");
+    });
 }
 
 function handleDeleteCard(cardElement, cardId) {
