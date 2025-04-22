@@ -1,11 +1,16 @@
 import "./index.css";
 import {
   enableValidation,
+  disableButton,
   resetValidation,
   settings,
 } from "../scripts/validation.js";
 import Api from "../utils/Api.js";
-import { setButtonText } from "../utils/helpers.js";
+import {
+  setButtonText,
+  renderLoading,
+  handleSubmit,
+} from "../utils/helpers.js";
 
 // const initialCards = [
 //   {
@@ -33,6 +38,9 @@ import { setButtonText } from "../utils/helpers.js";
 //     link: "https://images.unsplash.com/photo-1500674425229-f692875b0ab7?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
 //   },
 // ];
+
+// All close buttons
+const closeButtons = document.querySelectorAll(".modal__close-button");
 
 // Profile Elements
 const profileEditButton = document.querySelector(".profile__edit-button");
@@ -204,8 +212,8 @@ function handleEditFormSubmit(evt) {
     .then((data) => {
       profileName.textContent = data.name;
       profileDescription.textContent = data.about;
-      evt.target.reset();
       closeModal(editModal);
+      evt.target.reset();
     })
     .catch(console.error)
     .finally(() => {
@@ -226,6 +234,7 @@ function handleAddCardSubmit(evt) {
     .addNewCards(inputValues)
     .then((cardData) => {
       const cardElement = getCardElement(cardData);
+      closeModal(cardModal);
       cardsList.prepend(cardElement);
       evt.target.reset();
       disableButton(cardSubmitButton, settings);
@@ -233,7 +242,6 @@ function handleAddCardSubmit(evt) {
     .catch(console.error)
     .finally(() => {
       setButtonText(submitBtn, false);
-      closeModal(cardModal);
     });
 }
 
@@ -247,6 +255,7 @@ function handleAvatarSubmit(evt) {
     .then((data) => {
       profileAvatar.src = data.avatar;
       evt.target.reset();
+      disableButton(submitBtn, settings);
       closeModal(avatarModal);
     })
     .catch(console.error)
@@ -258,7 +267,7 @@ function handleAvatarSubmit(evt) {
 // Allows for deleting cards
 function handleDeleteSubmit(evt) {
   evt.preventDefault();
-  const submitBtn = deleteModalButton;
+  console.log(submitBtn);
   setButtonText(submitBtn, true, "Deleting...", "Delete");
   api
     .deleteCard(selectedCardId)
@@ -290,19 +299,16 @@ profileEditButton.addEventListener("click", () => {
   openModal(editModal);
 });
 
-profileCloseButton.addEventListener("click", () => {
-  closeModal(editModal);
+closeButtons.forEach((button) => {
+  // Find the closest popup only once
+  const popup = button.closest(".modal");
+  // Set the listener
+  button.addEventListener("click", () => closeModal(popup));
 });
-
-editFormElement.addEventListener("submit", handleEditFormSubmit);
 
 // All functionality for the form that opens when you click "+ New Post"
 cardModalButton.addEventListener("click", () => {
   openModal(cardModal);
-});
-
-cardModalCloseButton.addEventListener("click", () => {
-  closeModal(cardModal);
 });
 
 // All functionality for the form that opens when you click on the profile avatar
@@ -310,16 +316,10 @@ avatarModalButton.addEventListener("click", () => {
   openModal(avatarModal);
 });
 
-avatarCloseButton.addEventListener("click", () => {
-  closeModal(avatarModal);
-});
-
 // All functionality for the form that opens when you click the delete button on a card
-deleteModalCloseButton.addEventListener("click", () => {
-  closeModal(deleteModal);
-});
 
-deleteModalButton.addEventListener("click", handleDeleteSubmit);
+const deleteForm = deleteModal.querySelector(".modal__form");
+deleteForm.addEventListener("submit", handleDeleteSubmit);
 
 deleteModalCancelButton.addEventListener("click", () => {
   closeModal(deleteModal);
@@ -331,4 +331,6 @@ cardForm.addEventListener("submit", handleAddCardSubmit);
 
 avatarForm.addEventListener("submit", handleAvatarSubmit);
 
-enableValidation(settings);
+document.addEventListener("DOMContentLoaded", () => {
+  enableValidation(settings);
+});
