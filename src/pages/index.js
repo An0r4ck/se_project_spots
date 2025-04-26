@@ -267,7 +267,7 @@ function handleAvatarSubmit(evt) {
 // Allows for deleting cards
 function handleDeleteSubmit(evt) {
   evt.preventDefault();
-  console.log(submitBtn);
+  const submitBtn = evt.submitter;
   setButtonText(submitBtn, true, "Deleting...", "Delete");
   api
     .deleteCard(selectedCardId)
